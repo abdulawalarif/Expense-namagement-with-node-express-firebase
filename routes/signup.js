@@ -1,9 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const admin = require("firebase-admin");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const secretKey = "AwalsSecretKey";
 
 // Handle signup route
 router.post('/', async (req, res) => {
@@ -18,20 +15,19 @@ router.post('/', async (req, res) => {
             disabled: false,
         });
 
-        // Store user data in Firestore
+        // Store user data in Firestore (without password)
         await admin.firestore().collection('users').doc(userRecord.uid).set({
             firstName,
             lastName,
-            password,
             email,
         });
 
-        // Generate a JWT token for the user
-        const token = jwt.sign({ uid: userRecord.uid }, secretKey);
+        // Generate a Firebase Auth token
+        const userIdToken = await admin.auth().createCustomToken(userRecord.uid);
 
-        res.json({ success: true, message: 'User created successfully', token });
+        res.json({ success: true, message: 'User created successfully', token: userIdToken });
     } catch (error) {
-        // Handle common Firebase Authentication errors
+        // Handle Firebase Authentication errors
         switch (error.code) {
             case 'auth/email-already-exists':
                 res.status(400).json({ success: false, error: 'Email already exists' });

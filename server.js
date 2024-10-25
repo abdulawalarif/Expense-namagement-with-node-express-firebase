@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const admin = require("firebase-admin");
 const credentials = require("./serviceAccountKey.json");
-const jwt = require("jsonwebtoken"); // Import the jsonwebtoken library
-const bcrypt = require("bcryptjs"); // Import bcrypt for password hashing
+const jwt = require("jsonwebtoken");  
+const bcrypt = require("bcryptjs");  
 const secretKey = "AwalsSecretKey";
 
 admin.initializeApp({
@@ -30,6 +30,9 @@ const getTodosRouter = require("./routes/getTodos");
 const deleteTodoRouter = require("./routes/deleteTodo");
 // Import the updateTodo route handler
 const updateTodoRouter = require("./routes/updateTodo");
+const getUserInfo = require("./routes/user_info");
+
+app.use('/user_info', getUserInfo);
 
 // Use the signup route
 app.use('/signup', signupRouter);

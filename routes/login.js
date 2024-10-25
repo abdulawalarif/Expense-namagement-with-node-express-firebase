@@ -1,42 +1,39 @@
 const express = require("express");
 const router = express.Router();
 const admin = require("firebase-admin");
-const jwt = require("jsonwebtoken");
+const axios = require("axios");
 
-const secretKey = "AwalsSecretKey";
+// Replace with your Firebase Web API key here
+const firebaseAPIKey = "AIzaSyC_vWuZBPAoI6V-BLtZTq63q0qUD8SKsfM"; 
 
 // Handle login route
 router.post('/', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Verify user credentials
-        const user = await admin.auth().getUserByEmail(email);
-        const uid = user.uid;
-        
-        // Check if the user exists in Firestore
-        const userDoc = await admin.firestore().collection('users').doc(uid).get();
-        const userData = userDoc.data();
+        // Call Firebase Auth REST API to verify email and password
+        const response = await axios.post(
+            `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseAPIKey}`,
+            { email, password, returnSecureToken: true }
+        );
 
-        if (!userData || !userData.password) {
-            return res.status(401).json({ success: false, error: 'Invalid credentials' });
-        }
+        // Extract the ID token from the response
+        const idToken = response.data.idToken;
 
-        const passwordHash = userData.password;
-
-        // Now, you can safely compare the provided password with the hashed password
-        const passwordMatch = (password == passwordHash);
-
-        if (!passwordMatch) {
-            return res.status(401).json({ success: false, error: 'Incorrect password' });
-        }
-
-        // Generate a JWT token for the authenticated user
-        const token = jwt.sign({ uid: uid }, secretKey);
-
-        res.json({ success: true, message: 'Login successful', token });
+        res.json({ success: true, message: 'Login successful', token: idToken });
     } catch (error) {
-        console.error('Error logging in:', error);
+        console.error('Error logging in:', error.response ? error.response.data : error.message);
+        if (error.response && error.response.data.error) {
+            const errorCode = error.response.data.error.message;
+            switch (errorCode) {
+                case 'EMAIL_NOT_FOUND':
+                    return res.status(401).json({ success: false, error: 'Email not found' });
+                case 'INVALID_PASSWORD':
+                    return res.status(401).json({ success: false, error: 'Incorrect password' });
+                default:
+                    return res.status(500).json({ success: false, error: 'Server error' });
+            }
+        }
         res.status(500).json({ success: false, error: 'Server error' });
     }
 });
