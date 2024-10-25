@@ -5,7 +5,7 @@ const admin = require("firebase-admin");
 // Middleware to verify ID token and get user data
 async function verifyToken(req, res, next) {
     const idToken = req.headers.authorization?.split("Bearer ")[1]; // Extract token from "Authorization" header
-
+    
     if (!idToken) {
         return res.status(401).json({ success: false, error: 'Authorization token missing' });
     }

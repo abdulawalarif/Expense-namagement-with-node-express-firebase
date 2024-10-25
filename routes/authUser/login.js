@@ -6,7 +6,6 @@ const axios = require("axios");
 // Replace with your Firebase Web API key here
 const firebaseAPIKey = "AIzaSyC_vWuZBPAoI6V-BLtZTq63q0qUD8SKsfM"; 
  
-// TODO missing api key say error as email is missing.. will have to configure it 
 
 // Handle login route
 router.post('/', async (req, res) => {
