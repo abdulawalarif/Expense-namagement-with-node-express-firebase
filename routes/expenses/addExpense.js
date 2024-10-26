@@ -1,25 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const admin = require("firebase-admin");
+const { verifyToken } = require('../../utils');
 
-// Middleware to verify ID token and get user data
-async function verifyToken(req, res, next) {
-    const idToken = req.headers.authorization?.split("Bearer ")[1]; // Extract token from "Authorization" header
-    
-    if (!idToken) {
-        return res.status(401).json({ success: false, error: 'Authorization token missing' });
-    }
 
-    try {
-        // Verify the token and get the uid
-        const decodedToken = await admin.auth().verifyIdToken(idToken);
-        req.uid = decodedToken.uid; // Attach uid to the request for later use
-        next();
-    } catch (error) {
-        console.error('Error verifying token:', error);
-        return res.status(403).json({ success: false, error: 'Unauthorized' });
-    }
-}
+
 
 // Endpoint to get user data from Firestore
 router.use(express.urlencoded({ extended: true }));
