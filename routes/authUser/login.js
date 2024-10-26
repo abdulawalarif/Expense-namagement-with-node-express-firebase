@@ -2,14 +2,26 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
+const { isValidEmail,isValidPassword,firebaseAPIKey } = require('../../utils');
 
 // Replace with your Firebase Web API key here
-const firebaseAPIKey = "AIzaSyC_vWuZBPAoI6V-BLtZTq63q0qUD8SKsfM"; 
  
 
 // Handle login route
 router.post('/', async (req, res) => {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({  error: 'Missing required fields' });
+    }
+    if (!isValidEmail(email)) {
+        return res.status(400).json({  error: 'Invalid email format' });
+    }
+
+    if (!isValidPassword(password)) {
+        return res.status(400).json({  error: 'Password must be at least 6 characters long' });
+    }
+
 
     try {
         // Format the data as application/x-www-form-urlencoded
@@ -28,21 +40,10 @@ router.post('/', async (req, res) => {
         // Extract the ID token from the response
         const idToken = response.data.idToken;
 
-        res.json({ success: true, message: 'Login successful', token: idToken });
+        res.json({  message: 'Login successful', token: idToken });
     } catch (error) {
-        console.error('Error logging in:', error.response ? error.response.data : error.message);
-        if (error.response && error.response.data.error) {
-            const errorCode = error.response.data.error.message;
-            switch (errorCode) {
-                case 'EMAIL_NOT_FOUND':
-                    return res.status(401).json({ success: false, error: 'Email not found' });
-                case 'INVALID_PASSWORD':
-                    return res.status(401).json({ success: false, error: 'Incorrect password' });
-                default:
-                    return res.status(500).json({ success: false, error: 'Server error' });
-            }
-        }
-        res.status(500).json({ success: false, error: 'Server error' });
+     
+        res.status(500).json({ error: 'Invalid login or password. Please try again.' });
     }
 });
 
