@@ -28,7 +28,8 @@ const updateTodoRouter = require("./routes/updateTodo");
 //adding expnse
 
 const addExpense = require("./routes/expenses/addExpense");
-const category = require("./routes/expenses/category");
+const category = require("./routes/expenses/categoryForProject");
+const usersCategory = require("./routes/expenses/categoryForusers");
 
 
 app.use('/signup', signupRouter);
@@ -46,7 +47,8 @@ app.use('/user/todos', updateTodoRouter);
 //adding expnse
 app.use('/addExpense', addExpense);
 app.use('/category', category);
-
+app.use('/usersCategory', usersCategory);
+//categoryForusers
 
 
 
