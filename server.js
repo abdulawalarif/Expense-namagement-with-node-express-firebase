@@ -18,13 +18,6 @@ const signupRouter = require("./routes/authUser/signup");
 const loginRouter = require("./routes/authUser/login");
 const getUserInfo = require("./routes/authUser/user_info");
 
-const userRouter = require("./routes/user");
-const userUpdateRouter = require("./routes/userUpdate");
-const createTodoRouter = require("./routes/createTodo");
-const getTodosRouter = require("./routes/getTodos");
-const deleteTodoRouter = require("./routes/deleteTodo");
-const updateTodoRouter = require("./routes/updateTodo");
-
 //adding expnse
 
 const addExpense = require("./routes/expenses/addExpense");
@@ -36,13 +29,6 @@ app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/user_info', getUserInfo);
 
-app.use('/user', userRouter);
-app.use('/user/update', userUpdateRouter);
-app.use('/user/createtodos', createTodoRouter);
-app.use('/user/todos', getTodosRouter);
-app.use('/user/todos', deleteTodoRouter);
-// Use the updateTodo route
-app.use('/user/todos', updateTodoRouter);
 
 //adding expnse
 app.use('/addExpense', addExpense);
