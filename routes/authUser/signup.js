@@ -90,8 +90,7 @@ router.post('/', async (req, res) => {
                 res.status(400).json({ error: 'Email already exists' });
                 break;
             default:
-                console.error('Error creating user:', error);
-                res.status(500).json({ error: 'Server error' });
+                 res.status(500).json({ error: error });
         }
     }
 });

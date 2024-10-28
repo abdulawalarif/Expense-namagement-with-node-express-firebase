@@ -1,5 +1,13 @@
+
+const express = require("express");
+const router = express.Router();
+const admin = require("firebase-admin");
+ 
+const { isValidEmail } = require('../../utils');
+
 // Password recovery route
-router.post('/password-recovery', async (req, res) => {
+router.use(express.urlencoded({ extended: true }));
+router.post('/', async (req, res) => {
     const { email } = req.body;
 
     // Validate email field
@@ -22,8 +30,8 @@ router.post('/password-recovery', async (req, res) => {
                 res.status(404).json({ error: 'User with this email not found' });
                 break;
             default:
-                console.error('Error sending password reset email:', error);
-                res.status(500).json({ error: 'Server error' });
+                 
+                res.status(500).json({ error: error });
         }
     }
 });

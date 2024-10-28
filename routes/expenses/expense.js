@@ -26,8 +26,8 @@ router.post('/', verifyToken, async (req, res) => {
  
 res.json({ message: 'Added an expenses successfully',});
     } catch (error) {
-        console.error('Error fetching user data:', error);
-        res.status(500).json({ success: false, error: 'Server error' });
+  
+        res.status(500).json({  error: error });
     }
 });
 
@@ -55,8 +55,7 @@ router.get('/', verifyToken, async (req, res) => {
 
         res.json({ success: true, expenses: expensesWithCategoryDetails });
     } catch (error) {
-        console.error('Error fetching expenses:', error);
-        res.status(500).json({ success: false, error: 'Server error' });
+         res.status(500).json({  error: error });
     }
 });
 
@@ -80,8 +79,8 @@ router.put('/:expenseId', verifyToken, async (req, res) => {
             date: date,
             description: description} });
     } catch (error) {
-        console.error('Error updating expense:', error);
-        res.status(500).json({ success: false, error: 'Server error' });
+      
+        res.status(500).json({ success: false, error: error });
     }
 });
 
@@ -95,8 +94,7 @@ router.delete('/:expenseId', verifyToken, async (req, res) => {
 
         res.json({ success: true, message: 'Expense deleted successfully' });
     } catch (error) {
-        console.error('Error deleting expense:', error);
-        res.status(500).json({ success: false, error: 'Server error' });
+         res.status(500).json({ success: false, error: error });
     }
 });
 

@@ -21,7 +21,7 @@ router.post('/', verifyToken, async (req, res) => {
 
         res.json({ message: 'Added a new category successfully', data: { categoryTitle: categoryTitle, description: description,} });
     } catch (error) {
-        res.status(500).json({ success: false, error: `Server error ${error}` });
+        res.status(500).json({ success: false, error: error });
     }
 });
 
@@ -48,7 +48,7 @@ router.get('/', verifyToken, async (req, res) => {
 
         res.json({ success: true, categories });
     } catch (error) {
-        res.status(500).json({ success: false, error: `Server error ${error}` });
+        res.status(500).json({ success: false, error: error });
     }
 });
 
@@ -67,7 +67,7 @@ router.put('/:id', verifyToken, async (req, res) => {
 
         res.json({ success: true, message: `Category with ID ${id} updated successfully`, data: { categoryTitle: categoryTitle, description: description,} });
     } catch (error) {
-        res.status(500).json({ success: false, error: `Server error ${error}` });
+        res.status(500).json({ success: false, error: error});
     }
 });
 
