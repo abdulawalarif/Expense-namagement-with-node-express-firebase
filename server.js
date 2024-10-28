@@ -17,24 +17,25 @@ app.use(express.urlencoded({extended: true}));
 const signupRouter = require("./routes/authUser/signup");
 const loginRouter = require("./routes/authUser/login");
 const getUserInfo = require("./routes/authUser/user_info");
+const recoverPassword = require("./routes/authUser/recoverPassword");
 
 //adding expnse
 
-const addExpense = require("./routes/expenses/addExpense");
+const addExpense = require("./routes/expenses/expense");
 const category = require("./routes/expenses/categoryForProject");
 const usersCategory = require("./routes/expenses/categoryForusers");
-
+const deleteUserData = require("./routes/deleteUserData");
 
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
+app.use('/recoverPassword', recoverPassword);
 app.use('/user_info', getUserInfo);
-
+app.use('/deleteUserData', deleteUserData);
 
 //adding expnse
-app.use('/addExpense', addExpense);
+app.use('/expense', addExpense);
 app.use('/category', category);
 app.use('/usersCategory', usersCategory);
-//categoryForusers
 
 
 
