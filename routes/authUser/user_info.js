@@ -17,7 +17,7 @@ async function verifyToken(req, res, next) {
         req.uid = decodedToken.uid; // Attach uid to the request for later use
         next();
     } catch (error) {
-        console.error('Error verifying token:', error);
+        
         return res.status(403).json({ success: false, error: 'Unauthorized' });
     }
 }
@@ -39,10 +39,10 @@ router.get('/', verifyToken, async (req, res) => {
             lastName: userData.lastName,
             email: userData.email
         };
-        res.json({ success: true, user: filteredData });
+        res.status(200).json({ success: true, user: filteredData });
     } catch (error) {
-        console.error('Error fetching user data:', error);
-        res.status(500).json({ success: false, error: 'Server error' });
+    
+        res.status(500).json({ success: false, error: error });
     }
 });
 
@@ -68,7 +68,7 @@ router.put('/', verifyToken, async (req, res) => {
         await userRef.update(updateData);
 
         // Respond with success message
-        res.json({ message: 'User data updated successfully', data:{firstName: firstName, lastName:lastName}});
+        res.status(200).json({ message: 'User data updated successfully', data:{firstName: firstName, lastName:lastName}});
     } catch (error) {
         console.error('Error updating user data:', error);
         res.status(500).json({ success: false, error: 'Server error' });

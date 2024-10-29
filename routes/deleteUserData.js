@@ -19,7 +19,7 @@ router.delete('/', verifyToken, async (req, res) => {
         await batch.commit();
         await userRef.delete();
         await admin.auth().deleteUser(uid);
-        res.json({ success: true, message: 'Your account and data have been deleted successfully' });
+        res.status(200).json({ success: true, message: 'Your account and data have been deleted successfully' });
     } catch (error) {
         console.error('Error deleting user data:', error);
         res.status(500).json({ success: false, error: error });

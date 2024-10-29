@@ -24,7 +24,9 @@ router.post('/', verifyToken, async (req, res) => {
 });
 
  
-res.json({ message: 'Added an expenses successfully',});
+res.status(201).json({ message: 'Added an expenses successfully',data:{amount: amount,
+    date:date,
+    description:description,}});
     } catch (error) {
   
         res.status(500).json({  error: error });
@@ -53,7 +55,7 @@ router.get('/', verifyToken, async (req, res) => {
             categoryDescription: categories[expense.categoryId]?.description || 'No Description'
         }));
 
-        res.json({ success: true, expenses: expensesWithCategoryDetails });
+        res.status(200).json({ success: true, expenses: expensesWithCategoryDetails });
     } catch (error) {
          res.status(500).json({  error: error });
     }
@@ -75,7 +77,7 @@ router.put('/:expenseId', verifyToken, async (req, res) => {
             updated_at: admin.firestore.FieldValue.serverTimestamp(),
         });
 
-        res.json({ success: true, message: 'Expense updated successfully',data:{amount: amount,
+        res.status(200).json({ success: true, message: 'Expense updated successfully',data:{amount: amount,
             date: date,
             description: description} });
     } catch (error) {
@@ -92,7 +94,7 @@ router.delete('/:expenseId', verifyToken, async (req, res) => {
         const expenseRef = admin.firestore().collection('users').doc(req.uid).collection('expenses').doc(expenseId);
         await expenseRef.delete();
 
-        res.json({ success: true, message: 'Expense deleted successfully' });
+        res.status(200).json({ success: true, message: 'Expense deleted successfully' });
     } catch (error) {
          res.status(500).json({ success: false, error: error });
     }

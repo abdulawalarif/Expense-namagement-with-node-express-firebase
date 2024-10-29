@@ -19,7 +19,7 @@ router.post('/', verifyToken, async (req, res) => {
             created_at: admin.firestore.FieldValue.serverTimestamp()
         });
 
-        res.json({ message: 'Added a new category successfully', data: { categoryTitle: categoryTitle, description: description,} });
+        res.status(201).json({ message: 'Added a new category successfully', data: { categoryTitle: categoryTitle, description: description,} });
     } catch (error) {
         res.status(500).json({ success: false, error: error });
     }
@@ -46,7 +46,7 @@ router.get('/', verifyToken, async (req, res) => {
             };
         });
 
-        res.json({ success: true, categories });
+        res.status(200).json({ success: true, categories });
     } catch (error) {
         res.status(500).json({ success: false, error: error });
     }
@@ -65,7 +65,7 @@ router.put('/:id', verifyToken, async (req, res) => {
             updated_at: admin.firestore.FieldValue.serverTimestamp()
         });
 
-        res.json({ success: true, message: `Category with ID ${id} updated successfully`, data: { categoryTitle: categoryTitle, description: description,} });
+        res.status(200).json({ success: true, message: `Category with ID ${id} updated successfully`, data: { categoryTitle: categoryTitle, description: description,} });
     } catch (error) {
         res.status(500).json({ success: false, error: error});
     }
@@ -77,7 +77,7 @@ router.delete('/:id', verifyToken, async (req, res) => {
 
     try {
         await admin.firestore().collection('users').doc(req.uid).collection('categories').doc(id).delete();
-        res.json({ success: true, message: `Category with ID ${id} deleted successfully` });
+        res.status(200).json({ success: true, message: `Category with ID ${id} deleted successfully` });
     } catch (error) {
         res.status(500).json({ success: false, error: `Server error ${error}` });
     }

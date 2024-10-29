@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
         // Send password reset email using Firebase Auth
         await admin.auth().generatePasswordResetLink(email);
 
-        res.json({ message: 'Password reset email sent successfully' });
+        res.status(200).json({ message: 'Password reset email sent successfully' });
     } catch (error) {
         // Handle errors
         switch (error.code) {

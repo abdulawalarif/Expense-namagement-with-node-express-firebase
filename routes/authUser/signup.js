@@ -82,7 +82,7 @@ router.post('/', async (req, res) => {
         // Extract the ID token from the response
         const idToken = response.data.idToken;
 
-        res.json({ message: 'Account created successfully', name: `${firstName} ${lastName}`, email, token: idToken });
+        res.status(201).json({ message: 'Account created successfully', name: `${firstName} ${lastName}`, email, token: idToken });
     } catch (error) {
         // Handle Firebase Authentication errors
         switch (error.code) {
