@@ -1,12 +1,13 @@
-# Node and Express projects for building Expense management system with Firebase a full-fledged application
+# Personal Expense management system REST API with Node and Express a full-fledged application.
 
 
-## This project ....
+## This project is for managing expenses and tracking them effeciently. 
 
 ## Features
 * Secure authentication 
 * Managing User profile
 * Complete expense management
+* Data protection
 
  
 ## APIS
@@ -59,7 +60,7 @@ Status: 200 OK
 **1.3 Fetch User [Profile](routes/authUser/user_info.js) informations:**
 ```bash
 curl -X GET http://127.0.0.1:8080/user_info\
-   -H "Authorization: Bearer YOUR_TOKEN_HERE" 
+     -H "Authorization: Bearer YOUR_TOKEN_HERE" 
 ```
 It will return something like:
 ```bash
@@ -348,7 +349,7 @@ Status: 200 OK
  **4.4 [DELETE an Expense](routes/expenses/expense.js):**
  ```bash
 curl -X DELETE http://127.0.0.1:8080/expense/:<id>// id of an expense
-     -H "Authorization: Bearer YOUR_TOKEN_HERE" 
+      -H "Authorization: Bearer YOUR_TOKEN_HERE" 
 ```
 
 And you will get:
@@ -377,12 +378,17 @@ Status: 200 OK
 ```bash
    npm install
 ```
-**Configure firebase**
+4. Configure firebase
 
  <img src="ScreenShoots/key_from_firebase.png" width="50%" alt="Demo of this application" />
 
 
-  4. Start the Development Server
+```bash
+Place the serviceAccountKey.json file into the main project
+Replace the utils/firebaseAPIKey="" to your firebase Projects API key
+```
+
+  5. Start the Development Server
 
 ```bash
    npm run dev
@@ -393,19 +399,22 @@ Status: 200 OK
 
 ## How to tweak this project for your own uses
 
-This is boilerplate, For  Expense management system if you want to add more fetures just extend the rest apis or if you don't want to user firebase install your preffered DB you age good to go.
+This is boilerplate for  Expense management system if you want to add more fetures just extend the rest apis or if you don't want to use firebase install your preffered DB just remove firebase you are good to go.
 
 ## Found a bug?
 
 If you found an issue or would like to submit an improvement to this project,
 please submit an issue using the issues tab above. If you would like to submit a PR with a fix, reference the issue you created!
 
+## Known issues (Work in progress)
+*  Generating monthly or yearly report.
 
 
 ## Author
 
 - [@abdulawalarif](https://github.com/abdulawalarif)
   
-## License
+## Licence
 
-[MIT](https://choosealicense.com/licenses/mit/)
+
+The MIT License (MIT). Please view the [License](LICENSE) File for more information.
