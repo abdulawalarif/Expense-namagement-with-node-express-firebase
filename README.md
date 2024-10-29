@@ -1,4 +1,4 @@
-# Node and Express projects for building Expense management system with Firebase(GET, POST, PUT, DELETE)
+# Node and Express projects for building Expense management system with Firebase a full-fledged application
 
 
 ## This project ....
@@ -365,14 +365,47 @@ Status: 200 OK
 1. Clone the project
 
 ```bash
-  git clone git@github.com:abdulawalarif/firebase-backend-with-node-express.git
+  git clone git@github.com:abdulawalarif/Expense-namagement-with-node-express-firebase.git
 ```
 
-
-2. Install the dependencys
+2. Navigate to the directory
+```bash
+  cd Expense-namagement-with-node-express-firebase/
+```
+3. Install the dependencys
 
 ```bash
    npm install
 ```
+**Configure firebase**
+
+ <img src="ScreenShoots/key_from_firebase.png" width="50%" alt="Demo of this application" />
+
+
+  4. Start the Development Server
+
+```bash
+   npm run dev
+```
 
   
+
+
+## How to tweak this project for your own uses
+
+This is boilerplate, For  Expense management system if you want to add more fetures just extend the rest apis or if you don't want to user firebase install your preffered DB you age good to go.
+
+## Found a bug?
+
+If you found an issue or would like to submit an improvement to this project,
+please submit an issue using the issues tab above. If you would like to submit a PR with a fix, reference the issue you created!
+
+
+
+## Author
+
+- [@abdulawalarif](https://github.com/abdulawalarif)
+  
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
